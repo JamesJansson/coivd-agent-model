@@ -1,7 +1,7 @@
 import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
 
 function callback(message) {
-    console.log(message);
+  console.log(message);
 }
 
 async function init() {
