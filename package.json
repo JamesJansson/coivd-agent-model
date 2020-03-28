@@ -1,0 +1,24 @@
+{
+  "name": "covid-agent-model",
+  "version": "1.0.0",
+  "description": "A COVID-19 (coronavirus) agent model. The aim of this model is to demonstrate the value of agent models (where you model individuals) over traditional SIR models using differential models.",
+  "main": "worker.js",
+  "dependencies": {
+    "eslint": "^6.8.0",
+    "prettier": "^2.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamesJansson/covid-agent-model.git"
+  },
+  "author": "James Jansson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JamesJansson/covid-agent-model/issues"
+  },
+  "homepage": "https://github.com/JamesJansson/covid-agent-model#readme"
+}
