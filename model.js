@@ -6,6 +6,7 @@ class Person {
     household,
     social,
     shop,
+    hospital,
     work,
     school,
     university,
@@ -18,7 +19,7 @@ class Person {
     this.household = household;
     this.social = social;
     this.shop = shop;
-    this.hospital = this.hospital;
+    this.hospital = hospital;
     this.work = work;
     this.school = school;
     this.university = university;
@@ -41,6 +42,7 @@ class Person {
   }
 
   runDay(day) {
+    this.determineSymptoms();
     this.determineIsolation(day);
     this.determineInfection(day);
   }

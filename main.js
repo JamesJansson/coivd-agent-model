@@ -14,5 +14,7 @@ async function init() {
 
   await obj.inc();
   console.log(`Counter: ${await obj.counter}`);
+
+  obj.runSimpleModelWrapper();
 }
 init();
