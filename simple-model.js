@@ -15,10 +15,11 @@ class Person {
     }
   }
 
-  runDay(day, infectionProbability) {
+  runDay(day, infectionProbability, data) {
     // Determine if the person has recovered
-    if (day > this.infectionEnd) {
+    if (this.infectionStatus === 1 && day > this.infectionEnd) {
       this.infectionStatus = 2; // No longer infective
+      data.newlyRecovered++;
     }
 
     // Determine the infections that this person is responsible for
@@ -26,9 +27,11 @@ class Person {
       this.connections.forEach(connection => {
         if (Math.random() < infectionProbability) {
           connection.infect(day);
+          data.newlyInfected++;
         }
       });
     }
+    return data;
   }
 
   finalizeDay() {
@@ -44,11 +47,11 @@ class Person {
 }
 
 function runSimpleModel() {
-  const numberOfPeople = 1000000;
+  const numberOfPeople = 100000;
   const initialInfected = 1000;
   const connectionCouplesPerPerson = 10;
-  const infectionProbability = 0.0063;
-  //   const infectionProbability = 0.0063 * 0.20;
+  //   const infectionProbability = 0.0063;
+  const infectionProbability = 0.0063 * 0.2;
   // We'll choose numberOfPeople * 10 connections because that means that each person will have 20 connections
 
   console.log("About to create people");
@@ -83,13 +86,19 @@ function runSimpleModel() {
     person1.finalizeDay();
   }
 
-  console.log("Starting model");
+  console.log("Starting time");
 
+  const results = [];
   // Run the model
   for (let day = 1; day <= 100; day++) {
+    const data = {
+      newlyInfected: 0,
+      newlyRecovered: 0
+    };
+
     // Run infections
     people.forEach(person => {
-      person.runDay(day, infectionProbability);
+      person.runDay(day, infectionProbability, data);
     });
     // Finalize infections for this step
     people.forEach(person => {
@@ -108,6 +117,27 @@ function runSimpleModel() {
         recovered++;
       }
     });
-    console.log(day + ", " + susceptible + ", " + infected + ", " + recovered);
+    results.push({
+      day,
+      susceptible,
+      infected,
+      recovered,
+      newlyInfected: data.newlyInfected,
+      newlyRecovered: data.newlyRecovered
+    });
+    console.log(
+      day +
+        ", " +
+        susceptible +
+        ", " +
+        infected +
+        ", " +
+        recovered +
+        ", " +
+        data.newlyInfected +
+        ", " +
+        data.newlyRecovered
+    );
   }
+  return results;
 }
