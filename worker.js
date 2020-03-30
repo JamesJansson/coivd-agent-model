@@ -18,7 +18,7 @@ const obj = {
     cb("callback message 2");
   },
   runSimpleModelWrapper() {
-    runSimpleModel();
+    return runSimpleModel();
   }
 };
 

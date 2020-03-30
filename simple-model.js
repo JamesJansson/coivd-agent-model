@@ -50,8 +50,8 @@ function runSimpleModel() {
   const numberOfPeople = 100000;
   const initialInfected = 1000;
   const connectionCouplesPerPerson = 10;
-  //   const infectionProbability = 0.0063;
-  const infectionProbability = 0.0063 * 0.2;
+  const infectionProbability = 0.0063;
+  //   const infectionProbability = 0.0063 * 0.2;
   // We'll choose numberOfPeople * 10 connections because that means that each person will have 20 connections
 
   console.log("About to create people");
