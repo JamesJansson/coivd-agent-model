@@ -33,7 +33,7 @@ class Person {
 
   finalizeDay() {
     // we finalize the day separately such that all the infection statuses are updated at once
-    if (this.nextInfectionStatus !== this.infectionStatus) {
+    if (this.infectionStatus === 0 && this.nextInfectionStatus === 1) {
       this.infectionStatus = this.nextInfectionStatus;
     }
   }
@@ -44,8 +44,12 @@ class Person {
 }
 
 function runSimpleModel() {
-  const numberOfPeople = 25000;
-  const infectionProbability = 0.3;
+  const numberOfPeople = 1000000;
+  const initialInfected = 1000;
+  const connectionCouplesPerPerson = 10;
+  const infectionProbability = 0.0063;
+  //   const infectionProbability = 0.0063 * 0.20;
+  // We'll choose numberOfPeople * 10 connections because that means that each person will have 20 connections
 
   console.log("About to create people");
 
@@ -58,8 +62,7 @@ function runSimpleModel() {
   console.log("Joining users");
 
   // Join users
-  // We'll choose numberOfPeople * 10 connections because that means that each person will have 20 connections
-  for (let i = 0; i < numberOfPeople * 10; i++) {
+  for (let i = 0; i < numberOfPeople * connectionCouplesPerPerson; i++) {
     // Choose two people at random
     const person1Number = Math.floor(numberOfPeople * Math.random());
     const person2Number = Math.floor(numberOfPeople * Math.random());
@@ -72,7 +75,7 @@ function runSimpleModel() {
   console.log("Initial infections");
 
   // Start people off with 100 infected
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < initialInfected; i++) {
     // Choose two people at random
     const person1Number = Math.floor(numberOfPeople * Math.random());
     const person1 = people[person1Number];
@@ -83,7 +86,7 @@ function runSimpleModel() {
   console.log("Starting model");
 
   // Run the model
-  for (let day = 0; day < 10; day++) {
+  for (let day = 1; day <= 100; day++) {
     // Run infections
     people.forEach(person => {
       person.runDay(day, infectionProbability);
@@ -103,11 +106,8 @@ function runSimpleModel() {
         infected++;
       } else if (status === 2) {
         recovered++;
-      } else {
-        console.log(status);
       }
     });
-    console.log(people.length);
-    console.log(day, ", ", susceptible, ", ", infected, ", ", recovered);
+    console.log(day + ", " + susceptible + ", " + infected + ", " + recovered);
   }
 }
