@@ -4,8 +4,8 @@ function callback(message) {
   console.log(message);
 }
 
-function addToCompartmentTable(data) {
-  const tableRef = document.getElementById("simple-agent-model-table");
+function addToTable(data, tableId) {
+  const tableRef = document.getElementById(tableId);
 
   function addData(row, item) {
     const newCell = row.insertCell();
@@ -39,7 +39,7 @@ async function init() {
   console.log(`Counter: ${await obj.counter}`);
 
   obj.runSimpleModelWrapper().then(results => {
-    addToCompartmentTable(results);
+    addToTable(results, "simple-agent-model-table");
   });
 }
 init();
