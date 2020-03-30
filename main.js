@@ -15,9 +15,6 @@ function addToTable(data, tableId) {
 
   data.forEach(element => {
     const newRow = tableRef.insertRow();
-
-    console.log(element.day);
-
     addData(newRow, element.day);
     addData(newRow, element.susceptible);
     addData(newRow, element.infected);

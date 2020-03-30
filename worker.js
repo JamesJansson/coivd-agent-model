@@ -1,5 +1,5 @@
 importScripts("https://unpkg.com/comlink/dist/umd/comlink.js");
-importScripts("simple-model.js");
+importScripts("simple-agent-model.js");
 
 const obj = {
   counter: 0,
@@ -18,7 +18,7 @@ const obj = {
     cb("callback message 2");
   },
   runSimpleModelWrapper() {
-    return runSimpleModel();
+    return runSimpleAgentModel();
   }
 };
 

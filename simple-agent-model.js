@@ -46,7 +46,7 @@ class Person {
   }
 }
 
-function runSimpleModel() {
+function runSimpleAgentModel() {
   const numberOfPeople = 100000;
   const initialInfected = 1000;
   const connectionCouplesPerPerson = 10;
