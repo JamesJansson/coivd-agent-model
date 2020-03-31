@@ -17,14 +17,6 @@ export default function mouseOver({ results, svg, width, height, yAxis }) {
     .append("g")
     .attr("class", "mouse-per-line");
 
-  mousePerLine
-    .append("circle")
-    .attr("r", 7)
-    .style("stroke", "black")
-    .style("fill", "none")
-    .style("stroke-width", "1px")
-    .style("opacity", "0");
-
   mousePerLine.append("text").attr("transform", "translate(10,3)");
 
   mouseG
@@ -34,15 +26,13 @@ export default function mouseOver({ results, svg, width, height, yAxis }) {
     .attr("fill", "none")
     .attr("pointer-events", "all")
     .on("mouseout", function () {
-      // on mouse out hide line, circles and text
+      // on mouse out hide line and text
       d3.select(".mouse-line").style("opacity", "0");
-      d3.selectAll(".mouse-per-line circle").style("opacity", "0");
       d3.selectAll(".mouse-per-line text").style("opacity", "0");
     })
     .on("mouseover", function () {
-      // on mouse in show line, circles and text
+      // on mouse in show line and text
       d3.select(".mouse-line").style("opacity", "1");
-      d3.selectAll(".mouse-per-line circle").style("opacity", "1");
       d3.selectAll(".mouse-per-line text").style("opacity", "1");
     })
     .on("mousemove", function () {
@@ -82,7 +72,9 @@ export default function mouseOver({ results, svg, width, height, yAxis }) {
           counter++;
         }
 
-        d3.select(this).select("text").text(yAxis.invert(pos.y).toFixed(2));
+        d3.select(this)
+          .select("text")
+          .text(Math.round(yAxis.invert(pos.y)));
 
         return "translate(" + mouse[0] + "," + pos.y + ")";
       });
