@@ -3,11 +3,12 @@ importScripts("simple-agent-model.js");
 importScripts("simple-compartment-model.js");
 
 const obj = {
-  runSimpleModelWrapper() {
-    return runSimpleAgentModel();
+  runSimpleAgentModelWrapper(settings) {
+    return runSimpleAgentModel(settings);
   },
-  runSimpleCompartmentModelWrapper() {
-    return runSimpleCompartmentModel();
+  runSimpleCompartmentModelWrapper(settings) {
+    console.log("cccc");
+    return runSimpleCompartmentModel(settings);
   }
 };
 

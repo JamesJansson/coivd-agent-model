@@ -46,11 +46,16 @@ class Person {
   }
 }
 
-function runSimpleAgentModel() {
-  const numberOfPeople = 100000;
-  const initialInfected = 1000;
-  const connectionsPerPerson = 20;
-  const infectionProbability = 0.0063;
+function runSimpleAgentModel({
+  numberOfPeople,
+  initialInfected,
+  connectionsPerPerson,
+  infectionProbability
+}) {
+  // const numberOfPeople = 100000;
+  // const initialInfected = 1000;
+  // const connectionsPerPerson = 20;
+  // const infectionProbability = 0.0063;
   //   const infectionProbability = 0.0063 * 0.2;
   // We'll choose numberOfPeople * 10 connections because that means that each person will have 20 connections
 

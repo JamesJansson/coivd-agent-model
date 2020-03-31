@@ -34,11 +34,35 @@ function init() {
 }
 init();
 
-async function runModel() {
-  await workerObj.runSimpleCompartmentModelWrapper().then(results => {
-    addToTable(results, "simple-agent-model-table");
-    sendDataToChart(results);
-  });
+async function runModel(settingsToBeReplaced) {
+  // const settings = {
+  //   mode: "simpleCompartmentModel",
+  //   numberOfPeople: 100000,
+  //   initialInfected: 1000,
+  //   infectionRate: 0.479,
+  //   recoverRate: 0.065
+  // };
+
+  const settings = {
+    mode: "simpleAgentModel",
+    numberOfPeople: 100000,
+    initialInfected: 1000,
+    connectionsPerPerson: 20,
+    infectionProbability: 0.0063
+  };
+
+  console.log("aaaaa");
+  let results;
+  if (settings.mode === "simpleCompartmentModel") {
+    results = await workerObj.runSimpleCompartmentModelWrapper(settings);
+  } else if (settings.mode === "simpleAgentModel") {
+    console.log("bbbbb");
+    results = await workerObj.runSimpleAgentModelWrapper(settings);
+  } else {
+    throw new Error("settings.mode not found");
+  }
+  addToTable(results, "simple-agent-model-table");
+  sendDataToChart(results);
 }
 
 runModel();

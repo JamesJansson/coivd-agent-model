@@ -1,8 +1,13 @@
-function runSimpleCompartmentModel() {
-  const numberOfPeople = 100000;
-  const initialInfected = 1000;
-  const infectionRate = 0.479;
-  const recoverRate = 0.065;
+function runSimpleCompartmentModel({
+  numberOfPeople,
+  initialInfected,
+  infectionRate,
+  recoverRate
+}) {
+  // const numberOfPeople = 100000;
+  // const initialInfected = 1000;
+  // const infectionRate = 0.479;
+  // const recoverRate = 0.065;
 
   let susceptible = numberOfPeople - initialInfected;
   let infected = initialInfected;
