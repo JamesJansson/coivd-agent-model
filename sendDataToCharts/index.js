@@ -67,9 +67,9 @@ export default function sendDataToChart(results) {
   // }
 
   // set the dimensions and margins of the graph
-  const margin = { top: 10, right: 30, bottom: 200, left: 70 };
-  const width = 600 - margin.left - margin.right;
-  const height = 400 - margin.top;
+  const margin = { top: 10, right: 30, bottom: 220, left: 70 };
+  const width = 640 - margin.left - margin.right;
+  const height = 420 - margin.top;
 
   // append the svg object to the body of the page
   var svg = d3
@@ -105,6 +105,10 @@ export default function sendDataToChart(results) {
     .text("Individuals");
 
   const linesData = [
+    {
+      label: "Day",
+      yVal: "day"
+    },
     {
       label: "Susceptible",
       yVal: "susceptible",

@@ -6,14 +6,17 @@ function createTooltipData(tooltip, tooltipDims, linesData) {
   let yPos;
   for (let i = 0; i < linesData.length; i++) {
     yPos = tooltipDims.y + heightOffset + ySpacing * i;
+
     // Legend
-    tooltip
-      .append("rect")
-      .attr("width", rectSize)
-      .attr("height", rectSize)
-      .attr("fill", linesData[i].idColour)
-      .attr("x", tooltipDims.x + 5)
-      .attr("y", yPos - 12);
+    if (linesData[i].idColour) {
+      tooltip
+        .append("rect")
+        .attr("width", rectSize)
+        .attr("height", rectSize)
+        .attr("fill", linesData[i].idColour)
+        .attr("x", tooltipDims.x + 5)
+        .attr("y", yPos - 12);
+    }
 
     // Label
     tooltip
@@ -79,7 +82,7 @@ export default function mouseOver({
 
   const tooltipDims = (() => {
     const tooltipDimsWidth = 250;
-    const tooltipDimsHeight = 140;
+    const tooltipDimsHeight = 160;
     return {
       width: tooltipDimsWidth,
       height: tooltipDimsHeight,
