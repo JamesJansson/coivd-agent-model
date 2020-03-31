@@ -35,7 +35,7 @@ function init() {
 init();
 
 async function runModel() {
-  await workerObj.runSimpleModelWrapper().then(results => {
+  await workerObj.runSimpleCompartmentModelWrapper().then(results => {
     addToTable(results, "simple-agent-model-table");
     sendDataToChart(results);
   });

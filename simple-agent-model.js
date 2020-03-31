@@ -49,7 +49,7 @@ class Person {
 function runSimpleAgentModel() {
   const numberOfPeople = 100000;
   const initialInfected = 1000;
-  const connectionCouplesPerPerson = 10;
+  const connectionsPerPerson = 20;
   const infectionProbability = 0.0063;
   //   const infectionProbability = 0.0063 * 0.2;
   // We'll choose numberOfPeople * 10 connections because that means that each person will have 20 connections
@@ -65,7 +65,7 @@ function runSimpleAgentModel() {
   console.log("Joining users");
 
   // Join users
-  for (let i = 0; i < numberOfPeople * connectionCouplesPerPerson; i++) {
+  for (let i = 0; i < (numberOfPeople * connectionsPerPerson) / 2; i++) {
     // Choose two people at random
     const person1Number = Math.floor(numberOfPeople * Math.random());
     const person2Number = Math.floor(numberOfPeople * Math.random());
@@ -88,7 +88,20 @@ function runSimpleAgentModel() {
 
   console.log("Starting time");
 
-  const results = [];
+  let susceptible = numberOfPeople - initialInfected;
+  let infected = initialInfected;
+  let recovered = 0;
+
+  const results = [
+    {
+      day: 0,
+      susceptible,
+      infected,
+      recovered,
+      newlyInfected: 0,
+      newlyRecovered: 0
+    }
+  ];
   // Run the model
   for (let day = 1; day <= 100; day++) {
     const data = {
