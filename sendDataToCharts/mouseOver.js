@@ -27,15 +27,17 @@ function createTooltipData(tooltip, tooltipDims, linesData) {
       .append("text")
       .attr("data-yVal", linesData[i].yVal)
       .attr("x", tooltipDims.x + tooltipDims.width - 50)
-      .attr("y", yPos + 4);
+      .attr("y", yPos + 4)
+      .attr("style", "font-weight:bold;");
   }
 }
 
 export default function mouseOver({ linesData, svg, width, height, yAxis }) {
   const mouseG = svg.append("g").attr("class", "mouse-over-effects");
 
+  // The black vertical line to follow mouse
   const mouseLine = mouseG
-    .append("path") // this is the black vertical line to follow mouse
+    .append("path")
     .attr("class", "mouse-line")
     .style("stroke", "black")
     .style("stroke-width", "1px")
@@ -56,9 +58,9 @@ export default function mouseOver({ linesData, svg, width, height, yAxis }) {
 
   mousePerLine
     .append("circle")
+    .data(linesData)
     .attr("r", 5)
-    .style("stroke", "black")
-    .style("fill", "black")
+    .style("fill", d => d.idColour)
     .style("stroke-width", "1px");
 
   mousePerLine.append("text").attr("transform", "translate(10,3)");
