@@ -33,14 +33,37 @@ function init() {
 }
 init();
 
-async function runModel() {
-  await workerObj.runSimpleModelWrapper().then(results => {
+async function runModel(sliderValues) {
+  await workerObj.runSimpleModelWrapper(sliderValues).then(results => {
     addToTable(results, "simple-agent-model-table");
     sendDataToChart(results);
   });
 }
 
-runModel();
+function getSliderValues() {
+  const numberOfPeople = parseFloat(
+    document.getElementById("numberOfPeopleSlider").value
+  );
+  const initialInfected = parseFloat(
+    document.getElementById("initialInfectedSlider").value
+  );
+  const connectionCouplesPerPerson = parseFloat(
+    document.getElementById("connectionPerPersonSlider").value
+  );
+  const infectionProbability =
+    parseFloat(document.getElementById("infectionProbabilitySlider").value) /
+    100;
+  // Divide by 100 because it's a percentage
+
+  return {
+    numberOfPeople,
+    initialInfected,
+    connectionCouplesPerPerson,
+    infectionProbability
+  };
+}
+
+runModel(getSliderValues());
 
 // Set up the start button
 const buttonRef = document.getElementById("start-button");
@@ -48,9 +71,11 @@ const buttonRef = document.getElementById("start-button");
 buttonRef.addEventListener(
   "click",
   function () {
-    // Collect form data here
+    // Clear the graph on every click
+    d3.select("#data-chart").html("");
 
-    runModel();
+    // Run the modal function
+    runModel(getSliderValues());
   },
   false
 );
