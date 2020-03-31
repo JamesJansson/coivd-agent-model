@@ -1,4 +1,4 @@
-export default function mouseOver({ svg, width, height, margin, yAxis }) {
+export default function mouseOver({ linesData, svg, width, height, yAxis }) {
   const mouseG = svg.append("g").attr("class", "mouse-over-effects");
 
   const mouseLine = mouseG
@@ -12,11 +12,14 @@ export default function mouseOver({ svg, width, height, margin, yAxis }) {
 
   const mousePerLine = mouseG
     .selectAll(".mouse-per-line")
-    .data(lines)
+    .data(linesData)
     .enter()
     .append("g")
     .attr("class", "mouse-per-line")
-    .style("opacity", "0");
+    .style("opacity", "0")
+    .attr("data-line", function (d) {
+      return d.yVal;
+    });
 
   mousePerLine
     .append("circle")

@@ -27,14 +27,14 @@ function createAxes({ results, width, height, margin }) {
   return { xAxis, yAxis };
 }
 
-function drawLine({ results, svg, xAxis, yAxis, stroke, yVal }) {
+function drawLine({ results, svg, xAxis, yAxis, idColour, yVal }) {
   // Add the line
   svg
     .append("path")
     .datum(results)
     .attr("class", "result-line")
     .attr("fill", "none")
-    .attr("stroke", stroke)
+    .attr("stroke", idColour)
     .attr("stroke-width", 1.5)
     .attr(
       "d",
@@ -87,55 +87,25 @@ export default function sendDataToChart(results) {
     .attr("x", -height / 2)
     .text("Individuals");
 
-  // Succeptible line
-  drawLine({
-    results,
-    svg,
-    xAxis,
-    yAxis,
-    stroke: "#0001FE",
-    yVal: "susceptible"
-  });
+  const linesData = [
+    {
+      label: "Susceptible",
+      yVal: "susceptible",
+      idColour: "#0001FE"
+    },
+    {
+      label: "Infected",
+      yVal: "infected",
+      idColour: "#F90504"
+    },
+    { label: "Recovered", yVal: "recovered", idColour: "#008700" },
+    { label: "Newly Infected", yVal: "newlyInfected", idColour: "#880303" },
+    { label: "Newly Recovered", yVal: "newlyRecovered", idColour: "#005600" }
+  ];
 
-  // Infected line
-  drawLine({
-    results,
-    svg,
-    xAxis,
-    yAxis,
-    stroke: "#F90504",
-    yVal: "infected"
-  });
+  for (let i = 0; i < linesData.length; i++) {
+    drawLine({ results, svg, xAxis, yAxis, ...linesData[i] });
+  }
 
-  // Recovered line
-  drawLine({
-    results,
-    svg,
-    xAxis,
-    yAxis,
-    stroke: "#008700",
-    yVal: "recovered"
-  });
-
-  // Newly Infected line
-  drawLine({
-    results,
-    svg,
-    xAxis,
-    yAxis,
-    stroke: "#880303",
-    yVal: "newlyInfected"
-  });
-
-  // Newly Recovered line
-  drawLine({
-    results,
-    svg,
-    xAxis,
-    yAxis,
-    stroke: "#005600",
-    yVal: "newlyRecovered"
-  });
-
-  mouseOver({ svg, width, height, margin, xAxis, yAxis });
+  mouseOver({ linesData, svg, width, height, xAxis, yAxis });
 }
