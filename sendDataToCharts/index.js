@@ -2,7 +2,7 @@ import mockData from "./mockData.js";
 import mouseOver from "./mouseOver.js";
 // TODO: comment out the import and the use in the below function
 
-function createAxes({ results, width, height }) {
+function createAxes({ results, width, height, margin }) {
   // Create X axis
   const xAxis = d3
     .scaleLinear()
@@ -52,7 +52,7 @@ export default function sendDataToChart(results) {
 
   // set the dimensions and margins of the graph
   const margin = { top: 10, right: 30, bottom: 40, left: 70 };
-  const width = 460 - margin.left - margin.right;
+  const width = 600 - margin.left - margin.right;
   const height = 400 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
@@ -65,7 +65,7 @@ export default function sendDataToChart(results) {
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // Create Axes
-  const { xAxis, yAxis } = createAxes({ results, width, height });
+  const { xAxis, yAxis } = createAxes({ results, width, height, margin });
   // Append the axes and create some axis titles
   svg
     .append("g")
@@ -137,5 +137,5 @@ export default function sendDataToChart(results) {
     yVal: "newlyRecovered"
   });
 
-  mouseOver({ results, svg, width, height, xAxis, yAxis });
+  mouseOver({ svg, width, height, margin, xAxis, yAxis });
 }
