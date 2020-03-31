@@ -1,4 +1,5 @@
 import mockData from "./mockData.js";
+import mouseOver from "./mouseOver.js";
 // TODO: comment out the import and the use in the below function
 
 function createAxes({ results, width, height }) {
@@ -31,6 +32,7 @@ function drawLine({ results, svg, xAxis, yAxis, stroke, yVal }) {
   svg
     .append("path")
     .datum(results)
+    .attr("class", "result-line")
     .attr("fill", "none")
     .attr("stroke", stroke)
     .attr("stroke-width", 1.5)
@@ -134,4 +136,6 @@ export default function sendDataToChart(results) {
     stroke: "#005600",
     yVal: "newlyRecovered"
   });
+
+  mouseOver({ results, svg, width, height, xAxis, yAxis });
 }
