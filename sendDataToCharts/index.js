@@ -49,7 +49,7 @@ export default function sendDataToChart(results) {
   }
 
   // set the dimensions and margins of the graph
-  const margin = { top: 10, right: 30, bottom: 30, left: 60 };
+  const margin = { top: 10, right: 30, bottom: 40, left: 70 };
   const width = 460 - margin.left - margin.right;
   const height = 400 - margin.top - margin.bottom;
 
@@ -64,12 +64,26 @@ export default function sendDataToChart(results) {
 
   // Create Axes
   const { xAxis, yAxis } = createAxes({ results, width, height });
-  // Append the axes
+  // Append the axes and create some axis titles
   svg
     .append("g")
     .attr("transform", `translate(0,${height})`)
     .call(d3.axisBottom(xAxis));
+  svg
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height + margin.top + 25)
+    .text("Day");
+
   svg.append("g").call(d3.axisLeft(yAxis));
+  svg
+    .append("text")
+    .attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .attr("y", -margin.left + 20)
+    .attr("x", -height / 2)
+    .text("Individuals");
 
   // Succeptible line
   drawLine({
