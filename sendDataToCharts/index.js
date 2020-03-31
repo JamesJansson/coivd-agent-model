@@ -26,24 +26,20 @@ function createAxes({ results, width, height }) {
   return { xAxis, yAxis };
 }
 
-function drawLine({ results, svg, xAxis, yAxis }) {
+function drawLine({ results, svg, xAxis, yAxis, stroke, yVal }) {
   // Add the line
   svg
     .append("path")
     .datum(results)
     .attr("fill", "none")
-    .attr("stroke", "steelblue")
+    .attr("stroke", stroke)
     .attr("stroke-width", 1.5)
     .attr(
       "d",
       d3
         .line()
-        .x(function (d) {
-          return xAxis(d.day);
-        })
-        .y(function (d) {
-          return yAxis(d.susceptible);
-        })
+        .x(result => xAxis(result.day))
+        .y(result => yAxis(result[yVal]))
     );
 }
 
@@ -75,6 +71,53 @@ export default function sendDataToChart(results) {
     .call(d3.axisBottom(xAxis));
   svg.append("g").call(d3.axisLeft(yAxis));
 
-  // Draw the succeptible line
-  drawLine({ results, svg, xAxis, yAxis });
+  // Succeptible line
+  drawLine({
+    results,
+    svg,
+    xAxis,
+    yAxis,
+    stroke: "#0001FE",
+    yVal: "susceptible"
+  });
+
+  // Infected line
+  drawLine({
+    results,
+    svg,
+    xAxis,
+    yAxis,
+    stroke: "#F90504",
+    yVal: "infected"
+  });
+
+  // Recovered line
+  drawLine({
+    results,
+    svg,
+    xAxis,
+    yAxis,
+    stroke: "#008700",
+    yVal: "recovered"
+  });
+
+  // Newly Infected line
+  drawLine({
+    results,
+    svg,
+    xAxis,
+    yAxis,
+    stroke: "#880303",
+    yVal: "newlyInfected"
+  });
+
+  // Newly Recovered line
+  drawLine({
+    results,
+    svg,
+    xAxis,
+    yAxis,
+    stroke: "#005600",
+    yVal: "newlyRecovered"
+  });
 }
