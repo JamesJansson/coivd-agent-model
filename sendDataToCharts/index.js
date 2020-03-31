@@ -1,6 +1,5 @@
-import mockData from "./mockData.js";
+// import mockData from "./mockData.js";
 import mouseOver from "./mouseOver.js";
-// TODO: comment out the import and the use in the below function
 
 function createAxes({ results, width, height, margin }) {
   // Create X axis
@@ -63,9 +62,9 @@ function drawLine({
 }
 
 export default function sendDataToChart(results) {
-  if (!results) {
-    results = mockData;
-  }
+  // if (!results) {
+  //   results = mockData;
+  // }
 
   // set the dimensions and margins of the graph
   const margin = { top: 10, right: 30, bottom: 200, left: 70 };
