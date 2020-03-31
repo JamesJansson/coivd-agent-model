@@ -6,7 +6,6 @@
   <script type="module" src="./sliders/index.js"></script>
   <link rel="stylesheet" type="text/css" href="./index.css" />
 </head>
-<button id="start-button">Start</button>
 <body>
   <h1>Compartment model</h1>
   <table id="compartment-table">
@@ -21,17 +20,6 @@
     </tr>
   </table>
 
-  <h1>Simple agent model</h1>
-  <table id="simple-agent-model-table">
-    <tr>
-      <th>Day</th>
-      <th>Susceptible</th>
-      <th>Infected</th>
-      <th>Recovered</th>
-      <th>Newly infected</th>
-      <th>Newly recovered</th>
-    </tr>
-  </table>
   <section class="container-fluid">
     <article class="row">
       <div class="col-4">
@@ -104,10 +92,26 @@
             />
           </div>
         </div>
+        <br />
+        <button id="start-button">Start</button>
       </div>
       <div class="col-8">
         <div id="data-chart"></div>
       </div>
     </article>
   </section>
+
+  <div>
+    <h1>Simple agent model</h1>
+    <table id="simple-agent-model-table">
+      <tr>
+        <th>Day</th>
+        <th>Susceptible</th>
+        <th>Infected</th>
+        <th>Recovered</th>
+        <th>Newly infected</th>
+        <th>Newly recovered</th>
+      </tr>
+    </table>
+  </div>
 </body>

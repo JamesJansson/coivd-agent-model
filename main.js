@@ -33,18 +33,14 @@ function init() {
 }
 init();
 
-// async function runModel() {
-//   await workerObj.runSimpleModelWrapper().then(results => {
-//     addToTable(results, "simple-agent-model-table");
-//     sendDataToChart(results);
-//   });
-// }
+async function runModel() {
+  await workerObj.runSimpleModelWrapper().then(results => {
+    addToTable(results, "simple-agent-model-table");
+    sendDataToChart(results);
+  });
+}
 
 runModel();
-
-function runModel() {
-  sendDataToChart();
-}
 
 // Set up the start button
 const buttonRef = document.getElementById("start-button");
