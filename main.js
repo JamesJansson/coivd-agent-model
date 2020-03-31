@@ -24,13 +24,21 @@ function addToTable(data, tableId) {
   });
 }
 
-async function init() {
+function sendDataToChart() {}
+
+let workerObj;
+function init() {
   const worker = new Worker("./worker.js");
   // WebWorkers use `postMessage` and therefore work with Comlink.
-  const obj = Comlink.wrap(worker);
-
-  obj.runSimpleModelWrapper().then(results => {
-    addToTable(results, "simple-agent-model-table");
-  });
+  workerObj = Comlink.wrap(worker);
 }
 init();
+
+async function runModel() {
+  await workerObj.runSimpleModelWrapper().then(results => {
+    addToTable(results, "simple-agent-model-table");
+    sendDataToChart(results);
+  });
+}
+
+runModel();
