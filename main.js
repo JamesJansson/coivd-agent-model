@@ -42,3 +42,16 @@ async function runModel() {
 }
 
 runModel();
+
+// Set up the start button
+const buttonRef = document.getElementById("start-button");
+
+buttonRef.addEventListener(
+  "click",
+  function () {
+    // Collect form data here
+
+    runModel();
+  },
+  false
+);
