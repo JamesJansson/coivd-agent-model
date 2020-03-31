@@ -32,7 +32,14 @@ function createTooltipData(tooltip, tooltipDims, linesData) {
   }
 }
 
-export default function mouseOver({ linesData, svg, width, height, yAxis }) {
+export default function mouseOver({
+  linesData,
+  svg,
+  width,
+  height,
+  margin,
+  yAxis
+}) {
   const mouseG = svg.append("g").attr("class", "mouse-over-effects");
 
   // The black vertical line to follow mouse
@@ -77,7 +84,7 @@ export default function mouseOver({ linesData, svg, width, height, yAxis }) {
       width: tooltipDimsWidth,
       height: tooltipDimsHeight,
       x: (width - tooltipDimsWidth) / 2,
-      y: (height - tooltipDimsHeight) / 2
+      y: height + 50
     };
   })();
   tooltip
