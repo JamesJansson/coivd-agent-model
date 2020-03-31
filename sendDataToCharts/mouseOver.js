@@ -1,3 +1,36 @@
+function createTooltipData(tooltip, tooltipDims, linesData) {
+  const heightOffset = 20;
+  const rectSize = 20;
+  const ySpacing = rectSize + 5;
+
+  let yPos;
+  for (let i = 0; i < linesData.length; i++) {
+    yPos = tooltipDims.y + heightOffset + ySpacing * i;
+    // Legend
+    tooltip
+      .append("rect")
+      .attr("width", rectSize)
+      .attr("height", rectSize)
+      .attr("fill", linesData[i].idColour)
+      .attr("x", tooltipDims.x + 5)
+      .attr("y", yPos - 12);
+
+    // Label
+    tooltip
+      .append("text")
+      .attr("x", tooltipDims.x + 10 + rectSize)
+      .attr("y", yPos + 4)
+      .text(`${linesData[i].label}:`);
+
+    // Value
+    tooltip
+      .append("text")
+      .attr("data-yVal", linesData[i].yVal)
+      .attr("x", tooltipDims.x + tooltipDims.width - 50)
+      .attr("y", yPos + 4);
+  }
+}
+
 export default function mouseOver({ linesData, svg, width, height, yAxis }) {
   const mouseG = svg.append("g").attr("class", "mouse-over-effects");
 
@@ -17,7 +50,7 @@ export default function mouseOver({ linesData, svg, width, height, yAxis }) {
     .append("g")
     .attr("class", "mouse-per-line")
     .style("opacity", "0")
-    .attr("data-line", function (d) {
+    .attr("data-yVal", function (d) {
       return d.yVal;
     });
 
@@ -30,48 +63,33 @@ export default function mouseOver({ linesData, svg, width, height, yAxis }) {
 
   mousePerLine.append("text").attr("transform", "translate(10,3)");
 
-  const focus = svg.append("g").attr("class", "focus").style("opacity", "1");
-  const focusDims = (() => {
-    const focusDimsWidth = 150;
-    const focusDimsHeight = 100;
+  const tooltip = svg
+    .append("g")
+    .attr("class", "tooltip")
+    .style("opacity", "1");
+
+  const tooltipDims = (() => {
+    const tooltipDimsWidth = 250;
+    const tooltipDimsHeight = 140;
     return {
-      width: focusDimsWidth,
-      height: focusDimsHeight,
-      x: (width - focusDimsWidth) / 2,
-      y: (height - focusDimsHeight) / 2
+      width: tooltipDimsWidth,
+      height: tooltipDimsHeight,
+      x: (width - tooltipDimsWidth) / 2,
+      y: (height - tooltipDimsHeight) / 2
     };
   })();
-  focus
+  tooltip
     .append("rect")
-    .attr("class", "tooltip")
-    .attr("width", focusDims.width)
-    .attr("height", focusDims.height)
-    .attr("x", focusDims.x)
-    .attr("y", focusDims.y)
+    .attr("width", tooltipDims.width)
+    .attr("height", tooltipDims.height)
+    .attr("x", tooltipDims.x)
+    .attr("y", tooltipDims.y)
     .attr("rx", 4)
     .attr("ry", 4)
     .attr("fill", "white")
     .attr("stroke", "black");
 
-  // Label
-  focus
-    .append("text")
-    .attr("x", focusDims.x)
-    .attr("y", focusDims.y + 12)
-    .text("Data:");
-
-  // Value
-  focus
-    .append("text")
-    .attr("class", "tooltip-data")
-    .attr("x", focusDims.x + focusDims.width - 40)
-    .attr("y", focusDims.y + 12);
-
-  focus
-    .append("text")
-    .attr("class", "tooltip-likes")
-    .attr("x", 60)
-    .attr("y", 18);
+  createTooltipData(tooltip, tooltipDims, linesData);
 
   mouseG
     .append("svg:rect") // append a rect to catch mouse movements on canvas
@@ -83,13 +101,13 @@ export default function mouseOver({ linesData, svg, width, height, yAxis }) {
       // on mouse out hide line, circles and text
       mouseLine.style("opacity", "0");
       d3.selectAll(".mouse-per-line").style("opacity", "0");
-      // focus.style("opacity", "0");
+      // tooltip.style("opacity", "0");
     })
     .on("mouseover", function () {
       // on mouse in show line, circles and text
       mouseLine.style("opacity", "1");
       d3.selectAll(".mouse-per-line").style("opacity", "1");
-      focus.style("opacity", "1");
+      tooltip.style("opacity", "1");
     })
     .on("mousemove", function () {
       // mouse moving over canvas
@@ -127,9 +145,12 @@ export default function mouseOver({ linesData, svg, width, height, yAxis }) {
         }
 
         const val = Math.round(yAxis.invert(pos.y));
-        d3.select(this).select("text").text(val);
-
-        focus.select(".tooltip-data").text(val);
+        // Insert the val into the mouse per line text
+        const self = d3.select(this);
+        self.select("text").text(val);
+        const yVal = self.attr("data-yVal");
+        // Insert the val into the tooltip
+        tooltip.select(`[data-yVal="${yVal}"]`).text(val);
 
         return `translate(${mouse[0]},${pos.y})`;
       });
