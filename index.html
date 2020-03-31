@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
 <head>
-  <script src="https://d3js.org/d3.v5.js"></script>
-  <!-- TODO: Use the minified version in prod -->
-  <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
   <script type="module" src="./main.js"></script>
+  <script type="module" src="./sliders/index.js"></script>
+  <link rel="stylesheet" type="text/css" href="./index.css" />
 </head>
 <button id="start-button">Start</button>
 <body>
@@ -32,5 +32,82 @@
       <th>Newly recovered</th>
     </tr>
   </table>
-  <div id="data-chart"></div>
+  <section class="container-fluid">
+    <article class="row">
+      <div class="col-4">
+        <br />
+        <div>
+          <label for="numberOfPeopleSlider"
+            >Number of People: &nbsp;<span id="numberOfPeopleSliderVal"></span
+          ></label>
+          <div>
+            <input
+              type="range"
+              min="1000"
+              max="100000"
+              value="1000"
+              class="slider"
+              id="numberOfPeopleSlider"
+            />
+          </div>
+        </div>
+        <br />
+        <div>
+          <label for="initialInfectedSlider"
+            >Initial Infected: &nbsp;<span id="initialInfectedSliderVal"></span
+          ></label>
+          <div>
+            <input
+              type="range"
+              min="100"
+              max="1000"
+              value="100"
+              class="slider"
+              id="initialInfectedSlider"
+            />
+          </div>
+        </div>
+        <br />
+        <div>
+          <label for="connectionPerPersonSlider"
+            >Connection Per Person: &nbsp;<span
+              id="connectionPerPersonSliderVal"
+            ></span
+          ></label>
+          <div>
+            <input
+              type="range"
+              min="1"
+              max="10"
+              value="1"
+              class="slider"
+              id="connectionPerPersonSlider"
+            />
+          </div>
+        </div>
+        <br />
+        <div>
+          <label for="infectionProbabilitySlider"
+            >Infection Probability (%): &nbsp;<span
+              id="infectionProbabilitySliderVal"
+            ></span
+          ></label>
+          <div>
+            <input
+              type="range"
+              min="0"
+              max="20"
+              step="0.1"
+              value="0"
+              class="slider"
+              id="infectionProbabilitySlider"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div id="data-chart"></div>
+      </div>
+    </article>
+  </section>
 </body>
