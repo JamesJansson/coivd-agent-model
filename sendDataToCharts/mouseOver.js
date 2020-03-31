@@ -12,10 +12,18 @@ export default function mouseOver({ results, svg, width, height, yAxis }) {
 
   const mousePerLine = mouseG
     .selectAll(".mouse-per-line")
-    .data(results)
+    .data(lines)
     .enter()
     .append("g")
-    .attr("class", "mouse-per-line");
+    .attr("class", "mouse-per-line")
+    .style("opacity", "0");
+
+  mousePerLine
+    .append("circle")
+    .attr("r", 5)
+    .style("stroke", "black")
+    .style("fill", "black")
+    .style("stroke-width", "1px");
 
   mousePerLine.append("text").attr("transform", "translate(10,3)");
 
@@ -26,22 +34,20 @@ export default function mouseOver({ results, svg, width, height, yAxis }) {
     .attr("fill", "none")
     .attr("pointer-events", "all")
     .on("mouseout", function () {
-      // on mouse out hide line and text
+      // on mouse out hide line, circles and text
       d3.select(".mouse-line").style("opacity", "0");
-      d3.selectAll(".mouse-per-line text").style("opacity", "0");
+      d3.selectAll(".mouse-per-line").style("opacity", "0");
     })
     .on("mouseover", function () {
-      // on mouse in show line and text
+      // on mouse in show line, circles and text
       d3.select(".mouse-line").style("opacity", "1");
-      d3.selectAll(".mouse-per-line text").style("opacity", "1");
+      d3.selectAll(".mouse-per-line").style("opacity", "1");
     })
     .on("mousemove", function () {
       // mouse moving over canvas
       var mouse = d3.mouse(this);
       d3.select(".mouse-line").attr("d", function () {
-        var d = "M" + mouse[0] + "," + height;
-        d += " " + mouse[0] + "," + 0;
-        return d;
+        return `M${mouse[0]},${height} ${mouse[0]},0`;
       });
 
       d3.selectAll(".mouse-per-line").attr("transform", function (d, i) {
@@ -76,7 +82,7 @@ export default function mouseOver({ results, svg, width, height, yAxis }) {
           .select("text")
           .text(Math.round(yAxis.invert(pos.y)));
 
-        return "translate(" + mouse[0] + "," + pos.y + ")";
+        return `translate(${mouse[0]},${pos.y})`;
       });
     });
 }
