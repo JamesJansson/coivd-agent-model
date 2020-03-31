@@ -113,9 +113,7 @@ export default function sendDataToChart(results) {
     {
       label: "Infected",
       yVal: "infected",
-      idColour: "#F90504",
-      fill: "#F90504",
-      createPolygon: true
+      idColour: "#F90504"
     },
     { label: "Recovered", yVal: "recovered", idColour: "#008700" },
     { label: "Newly Infected", yVal: "newlyInfected", idColour: "#880303" },
