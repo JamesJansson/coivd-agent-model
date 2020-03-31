@@ -1,4 +1,5 @@
 import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
+import sendDataToChart from "./sendDataToCharts/index.js";
 
 function callback(message) {
   console.log(message);
@@ -24,8 +25,6 @@ function addToTable(data, tableId) {
   });
 }
 
-function sendDataToChart() {}
-
 let workerObj;
 function init() {
   const worker = new Worker("./worker.js");
@@ -34,14 +33,18 @@ function init() {
 }
 init();
 
-async function runModel() {
-  await workerObj.runSimpleModelWrapper().then(results => {
-    addToTable(results, "simple-agent-model-table");
-    sendDataToChart(results);
-  });
-}
+// async function runModel() {
+//   await workerObj.runSimpleModelWrapper().then(results => {
+//     addToTable(results, "simple-agent-model-table");
+//     sendDataToChart(results);
+//   });
+// }
 
 runModel();
+
+function runModel() {
+  sendDataToChart();
+}
 
 // Set up the start button
 const buttonRef = document.getElementById("start-button");
