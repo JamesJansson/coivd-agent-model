@@ -27,13 +27,30 @@ function createAxes({ results, width, height, margin }) {
   return { xAxis, yAxis };
 }
 
-function drawLine({ results, svg, xAxis, yAxis, idColour, yVal }) {
+function drawLine({
+  results,
+  svg,
+  xAxis,
+  yAxis,
+  idColour,
+  yVal,
+  createPolygon,
+  fill = "none"
+}) {
+  results = JSON.parse(JSON.stringify(results));
+
+  if (createPolygon) {
+    const firstPoint = results[0];
+    results.push(firstPoint);
+  }
+
   // Add the line
   svg
     .append("path")
     .datum(results)
+    .attr("data-yVal", yVal)
     .attr("class", "result-line")
-    .attr("fill", "none")
+    .attr("fill", fill)
     .attr("stroke", idColour)
     .attr("stroke-width", 1.5)
     .attr(
@@ -97,7 +114,9 @@ export default function sendDataToChart(results) {
     {
       label: "Infected",
       yVal: "infected",
-      idColour: "#F90504"
+      idColour: "#F90504",
+      fill: "#F90504",
+      createPolygon: true
     },
     { label: "Recovered", yVal: "recovered", idColour: "#008700" },
     { label: "Newly Infected", yVal: "newlyInfected", idColour: "#880303" },
