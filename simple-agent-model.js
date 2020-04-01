@@ -8,10 +8,11 @@ class Person {
     this.connections.push(connection);
   }
 
-  infect(day, data) {
+  infect(day, settings, data) {
     if (this.infectionStatus === 0) {
       this.nextInfectionStatus = 1;
-      this.infectionEnd = day + 21;
+      this.infectionEnd =
+        day + settings.medianTimeUntilRecovery + 7 * (Math.random() * 2 - 1);
       if (data) {
         data.newlyInfected++;
       }
@@ -105,7 +106,7 @@ function runSimpleAgentModel(settings) {
       person1 = arr[supplementaryPersonNumber];
       console.log(person1.infectionStatus);
     }
-    person1.infect(0);
+    person1.infect(0, settings);
     person1.finalizeDay();
   }
 
