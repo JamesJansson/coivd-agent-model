@@ -51,17 +51,15 @@ async function runModel(settings) {
   //   infectionProbability: 0.0063
   // };
 
-  console.log("aaaaa");
   let results;
   if (settings.modelSelection === "compartment-model") {
     results = await workerObj.runSimpleCompartmentModelWrapper(settings);
   } else if (settings.modelSelection === "simple-agent-model") {
-    console.log("bbbbb");
     results = await workerObj.runSimpleAgentModelWrapper(settings);
   } else {
     throw new Error("settings.modelSelection not found");
   }
-  addToTable(results, "simple-agent-model-table");
+  addToTable(results, "model-table");
   sendDataToChart(results);
 }
 
