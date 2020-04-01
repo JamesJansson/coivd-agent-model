@@ -84,3 +84,16 @@ buttonRef.addEventListener(
   },
   false
 );
+
+// Set up dropdown handler
+const dropdownRef = document.getElementById("model-selection");
+
+function dropdownHandler() {
+  const value = dropdownRef.value;
+  console.log(`Dropdown is set to: ${value}`);
+}
+
+dropdownRef.addEventListener("change", dropdownHandler);
+
+// Run function once to set up default
+dropdownHandler();
