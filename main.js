@@ -33,14 +33,17 @@ function init() {
 }
 init();
 
-async function runModel(sliderValues) {
-  await workerObj.runSimpleModelWrapper(sliderValues).then(results => {
+async function runModel(inputVals) {
+  // inputVals gives you modelSelection as a key to determine which model to run
+  // Create an if statement between values of "compartment-model" and "simple-agent-model"
+
+  await workerObj.runSimpleModelWrapper(inputVals).then(results => {
     addToTable(results, "simple-agent-model-table");
     sendDataToChart(results);
   });
 }
 
-function getSliderValues() {
+function getInputVals() {
   const numberOfPeople = parseFloat(
     document.getElementById("numberOfPeopleSlider").value
   );
@@ -50,20 +53,22 @@ function getSliderValues() {
   const connectionCouplesPerPerson = parseFloat(
     document.getElementById("connectionPerPersonSlider").value
   );
+  // Divide by 100 because it's a percentage
   const infectionProbability =
     parseFloat(document.getElementById("infectionProbabilitySlider").value) /
     100;
-  // Divide by 100 because it's a percentage
 
+  const modelSelection = document.getElementById("model-selection").value;
   return {
     numberOfPeople,
     initialInfected,
     connectionCouplesPerPerson,
-    infectionProbability
+    infectionProbability,
+    modelSelection
   };
 }
 
-runModel(getSliderValues());
+runModel(getInputVals());
 
 // Set up the start button
 const buttonRef = document.getElementById("start-button");
@@ -75,7 +80,7 @@ buttonRef.addEventListener(
     d3.select("#data-chart").html("");
 
     // Run the modal function
-    runModel(getSliderValues());
+    runModel(getInputVals());
   },
   false
 );
