@@ -18,7 +18,7 @@ class Person {
     }
   }
 
-  runDay(day, infectionProbability, data) {
+  runDay(day, settings, data) {
     // Determine if the person has recovered
     if (this.infectionStatus === 1 && day > this.infectionEnd) {
       this.infectionStatus = 2; // No longer infective
@@ -28,8 +28,8 @@ class Person {
     // Determine the infections that this person is responsible for
     if (this.infectionStatus === 1) {
       this.connections.forEach(connection => {
-        if (Math.random() < infectionProbability) {
-          connection.infect(day, data);
+        if (Math.random() < settings.infectionProbability) {
+          connection.infect(day, settings, data);
         }
       });
     }
@@ -48,12 +48,20 @@ class Person {
   }
 }
 
-function runSimpleAgentModel({
-  numberOfPeople,
-  initialInfected,
-  connectionsPerPerson,
-  infectionProbability
-}) {
+function runSimpleAgentModel(settings) {
+  const {
+    numberOfPeople,
+    initialInfected,
+    connectionsPerPerson,
+    infectionProbability
+  } = settings;
+
+  console.log({
+    numberOfPeople,
+    initialInfected,
+    connectionsPerPerson,
+    infectionProbability
+  });
   // const numberOfPeople = 100000;
   // const initialInfected = 1000;
   // const connectionsPerPerson = 20;
@@ -126,7 +134,7 @@ function runSimpleAgentModel({
 
     // Run infections
     people.forEach(person => {
-      person.runDay(day, infectionProbability, data);
+      person.runDay(day, settings, data);
     });
     // Finalize infections for this step
     people.forEach(person => {
