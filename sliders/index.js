@@ -2,7 +2,7 @@ function sliderHandler() {
   const sliderIDs = [
     "numberOfPeopleSlider",
     "initialInfectedSlider",
-    "connectionPerPersonSlider",
+    "connectionsPerPersonSlider",
     "infectionProbabilitySlider"
   ];
 

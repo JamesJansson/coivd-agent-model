@@ -33,7 +33,8 @@ function init() {
 }
 init();
 
-async function runModel(settingsToBeReplaced) {
+async function runModel(settings) {
+  console.log(settings);
   // const settings = {
   //   mode: "simpleCompartmentModel",
   //   numberOfPeople: 100000,
@@ -42,23 +43,23 @@ async function runModel(settingsToBeReplaced) {
   //   recoverRate: 0.065
   // };
 
-  const settings = {
-    mode: "simpleAgentModel",
-    numberOfPeople: 100000,
-    initialInfected: 1000,
-    connectionsPerPerson: 20,
-    infectionProbability: 0.0063
-  };
+  // const settings = {
+  //   mode: "simpleAgentModel",
+  //   numberOfPeople: 100000,
+  //   initialInfected: 1000,
+  //   connectionsPerPerson: 20,
+  //   infectionProbability: 0.0063
+  // };
 
   console.log("aaaaa");
   let results;
-  if (settings.mode === "simpleCompartmentModel") {
+  if (settings.modelSelection === "compartment-model") {
     results = await workerObj.runSimpleCompartmentModelWrapper(settings);
-  } else if (settings.mode === "simpleAgentModel") {
+  } else if (settings.modelSelection === "simple-agent-model") {
     console.log("bbbbb");
     results = await workerObj.runSimpleAgentModelWrapper(settings);
   } else {
-    throw new Error("settings.mode not found");
+    throw new Error("settings.modelSelection not found");
   }
   addToTable(results, "simple-agent-model-table");
   sendDataToChart(results);
@@ -71,8 +72,8 @@ function getInputVals() {
   const initialInfected = parseFloat(
     document.getElementById("initialInfectedSlider").value
   );
-  const connectionCouplesPerPerson = parseFloat(
-    document.getElementById("connectionPerPersonSlider").value
+  const connectionsPerPerson = parseFloat(
+    document.getElementById("connectionsPerPersonSlider").value
   );
   // Divide by 100 because it's a percentage
   const infectionProbability =
@@ -83,7 +84,7 @@ function getInputVals() {
   return {
     numberOfPeople,
     initialInfected,
-    connectionCouplesPerPerson,
+    connectionsPerPerson,
     infectionProbability,
     modelSelection
   };
@@ -112,6 +113,7 @@ const dropdownRef = document.getElementById("model-selection");
 function dropdownHandler() {
   const value = dropdownRef.value;
   console.log(`Dropdown is set to: ${value}`);
+  // TODO:
 }
 
 dropdownRef.addEventListener("change", dropdownHandler);
