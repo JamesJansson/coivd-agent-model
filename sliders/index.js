@@ -3,7 +3,9 @@ function sliderHandler() {
     "numberOfPeopleSlider",
     "initialInfectedSlider",
     "connectionsPerPersonSlider",
-    "infectionProbabilitySlider"
+    "medianTimeUntilRecoverySlider",
+    "infectionProbabilitySlider",
+    "infectionRateSlider"
   ];
 
   for (let i = 0; i < sliderIDs.length; i++) {

@@ -12,31 +12,25 @@
       COVID MODEL
     </div>
   </div>
-  <h1>Compartment model</h1>
-  <table id="compartment-table">
-    <tr>
-      <th>Day</th>
-      <th>Susceptible</th>
-      <th>Infected</th>
-      <th>Recovered</th>
-      <th>Newly susceptible</th>
-      <th>Newly infected</th>
-      <th>Newly recovered</th>
-    </tr>
-  </table>
-
   <section>
     <article class="d-flex justify-content-center">
       <div class="sliders-group">
         <br />
         <div>
+          <select id="model-selection">
+            <option value="compartment-model">Compartment Model</option>
+            <option value="simple-agent-model">Simple Agent Model</option>
+          </select>
+        </div>
+        <br />
+        <div>
           <label for="numberOfPeopleSlider"
-            >Number of People: &nbsp;<span id="numberOfPeopleSliderVal"></span
+            >Number of people: &nbsp;<span id="numberOfPeopleSliderVal"></span
           ></label>
           <div>
             <input
               type="range"
-              min="1000"
+              min="0"
               max="100000"
               value="1000"
               class="slider"
@@ -47,12 +41,12 @@
         <br />
         <div>
           <label for="initialInfectedSlider"
-            >Initial Infected: &nbsp;<span id="initialInfectedSliderVal"></span
+            >Initial infected: &nbsp;<span id="initialInfectedSliderVal"></span
           ></label>
           <div>
             <input
               type="range"
-              min="100"
+              min="0"
               max="1000"
               value="100"
               class="slider"
@@ -63,7 +57,7 @@
         <br />
         <div>
           <label for="connectionsPerPersonSlider"
-            >Connection Per Person: &nbsp;<span
+            >Average connections per person: &nbsp;<span
               id="connectionsPerPersonSliderVal"
             ></span
           ></label>
@@ -71,8 +65,8 @@
             <input
               type="range"
               min="1"
-              max="10"
-              value="1"
+              max="40"
+              value="20"
               class="slider"
               id="connectionsPerPersonSlider"
             />
@@ -80,17 +74,35 @@
         </div>
         <br />
         <div>
-          <label for="infectionProbabilitySlider"
-            >Infection Probability (%): &nbsp;<span
-              id="infectionProbabilitySliderVal"
+          <label for="medianTimeUntilRecoverySlider"
+            >Mean time until recovery (days): &nbsp;<span
+              id="medianTimeUntilRecoverySliderVal"
             ></span
           ></label>
           <div>
             <input
               type="range"
               min="0"
-              max="20"
-              step="0.1"
+              max="50"
+              step="1"
+              value="14"
+              class="slider"
+              id="medianTimeUntilRecoverySlider"
+            />
+          </div>
+        </div>
+        <br />
+        <div>
+          <label for="infectionProbabilitySlider"
+            >Infection probability (infections per day per contact per person):
+            &nbsp;<span id="infectionProbabilitySliderVal"></span
+          ></label>
+          <div>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              step="0.01"
               value="0.5"
               class="slider"
               id="infectionProbabilitySlider"
@@ -99,10 +111,22 @@
         </div>
         <br />
         <div>
-          <select id="model-selection">
-            <option value="compartment-model">Compartment Model</option>
-            <option value="simple-agent-model">Simple Agent Model</option>
-          </select>
+          <label for="infectionRateSlider"
+            >Infection rate (infections per day per person): &nbsp;<span
+              id="infectionRateSliderVal"
+            ></span
+          ></label>
+          <div>
+            <input
+              type="range"
+              min="0"
+              max="10"
+              step="0.01"
+              value="0.5"
+              class="slider"
+              id="infectionRateSlider"
+            />
+          </div>
         </div>
         <br />
         <div>

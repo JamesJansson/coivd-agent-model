@@ -66,6 +66,8 @@ async function runModel(settings) {
 }
 
 function getInputVals() {
+  const modelSelection = document.getElementById("model-selection").value;
+
   const numberOfPeople = parseFloat(
     document.getElementById("numberOfPeopleSlider").value
   );
@@ -75,18 +77,25 @@ function getInputVals() {
   const connectionsPerPerson = parseFloat(
     document.getElementById("connectionsPerPersonSlider").value
   );
+  const medianTimeUntilRecovery = parseFloat(
+    document.getElementById("medianTimeUntilRecoverySlider").value
+  );
   // Divide by 100 because it's a percentage
   const infectionProbability =
     parseFloat(document.getElementById("infectionProbabilitySlider").value) /
     100;
+  const infectionRate = parseFloat(
+    document.getElementById("infectionRateSlider").value
+  );
 
-  const modelSelection = document.getElementById("model-selection").value;
   return {
+    modelSelection,
     numberOfPeople,
     initialInfected,
     connectionsPerPerson,
+    medianTimeUntilRecovery,
     infectionProbability,
-    modelSelection
+    infectionRate
   };
 }
 
@@ -111,9 +120,13 @@ buttonRef.addEventListener(
 const dropdownRef = document.getElementById("model-selection");
 
 function dropdownHandler() {
-  const value = dropdownRef.value;
-  console.log(`Dropdown is set to: ${value}`);
+  const modelSelection = dropdownRef.value;
+  console.log(`Dropdown is set to: ${modelSelection}`);
   // TODO:
+
+  if (modelSelection === "compartment-model") {
+  } else if (modelSelection === "simple-agent-model") {
+  }
 }
 
 dropdownRef.addEventListener("change", dropdownHandler);
