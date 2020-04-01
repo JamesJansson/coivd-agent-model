@@ -8,10 +8,13 @@ class Person {
     this.connections.push(connection);
   }
 
-  infect(day) {
+  infect(day, data) {
     if (this.infectionStatus === 0) {
       this.nextInfectionStatus = 1;
       this.infectionEnd = day + 21;
+      if (data) {
+        data.newlyInfected++;
+      }
     }
   }
 
@@ -26,8 +29,7 @@ class Person {
     if (this.infectionStatus === 1) {
       this.connections.forEach(connection => {
         if (Math.random() < infectionProbability) {
-          connection.infect(day);
-          data.newlyInfected++;
+          connection.infect(day, data);
         }
       });
     }
