@@ -18,7 +18,13 @@ function createAxes({ results, width, height, margin }) {
     .domain([
       0,
       d3.max(results, function (result) {
-        return result.susceptible;
+        return Math.max(
+          result.susceptible,
+          result.infected,
+          result.recovered,
+          result.newlyInfected,
+          result.newlyRecovered
+        );
       })
     ])
     .range([height, 0]);
