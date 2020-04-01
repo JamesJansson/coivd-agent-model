@@ -82,11 +82,19 @@ function runSimpleAgentModel({
 
   console.log("Initial infections");
 
-  // Start people off with 100 infected
+  // Start people off with initial infected
   for (let i = 0; i < initialInfected; i++) {
-    // Choose two people at random
-    const person1Number = Math.floor(numberOfPeople * Math.random());
-    const person1 = people[person1Number];
+    // Choose people at random
+    const personNumber = Math.floor(numberOfPeople * Math.random());
+    let person1 = people[personNumber];
+
+    // If the person is already infected, it is likely that there are many people infected, so filter
+    if (person1.infectionStatus === 1) {
+      const arr = people.filter(p => p.infectionStatus === 0);
+      const supplementaryPersonNumber = Math.floor(arr.length * Math.random());
+      person1 = arr[supplementaryPersonNumber];
+      console.log(person1.infectionStatus);
+    }
     person1.infect(0);
     person1.finalizeDay();
   }
