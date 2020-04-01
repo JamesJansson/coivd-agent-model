@@ -154,3 +154,10 @@ body {
   background: #4caf50;
   cursor: pointer;
 }
+
+#nav-bar {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  background-color: lavender;
+}
