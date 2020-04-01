@@ -1,4 +1,5 @@
 import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
+import sendDataToChart from "./sendDataToCharts/index.js";
 
 function callback(message) {
   console.log(message);
@@ -23,8 +24,6 @@ function addToTable(data, tableId) {
     addData(newRow, element.newlyRecovered);
   });
 }
-
-function sendDataToChart() {}
 
 let workerObj;
 function init() {
@@ -65,7 +64,32 @@ async function runModel(settingsToBeReplaced) {
   sendDataToChart(results);
 }
 
-runModel();
+function getInputVals() {
+  const numberOfPeople = parseFloat(
+    document.getElementById("numberOfPeopleSlider").value
+  );
+  const initialInfected = parseFloat(
+    document.getElementById("initialInfectedSlider").value
+  );
+  const connectionCouplesPerPerson = parseFloat(
+    document.getElementById("connectionPerPersonSlider").value
+  );
+  // Divide by 100 because it's a percentage
+  const infectionProbability =
+    parseFloat(document.getElementById("infectionProbabilitySlider").value) /
+    100;
+
+  const modelSelection = document.getElementById("model-selection").value;
+  return {
+    numberOfPeople,
+    initialInfected,
+    connectionCouplesPerPerson,
+    infectionProbability,
+    modelSelection
+  };
+}
+
+runModel(getInputVals());
 
 // Set up the start button
 const buttonRef = document.getElementById("start-button");
@@ -73,9 +97,24 @@ const buttonRef = document.getElementById("start-button");
 buttonRef.addEventListener(
   "click",
   function () {
-    // Collect form data here
+    // Clear the graph on every click
+    d3.select("#data-chart").html("");
 
-    runModel();
+    // Run the modal function
+    runModel(getInputVals());
   },
   false
 );
+
+// Set up dropdown handler
+const dropdownRef = document.getElementById("model-selection");
+
+function dropdownHandler() {
+  const value = dropdownRef.value;
+  console.log(`Dropdown is set to: ${value}`);
+}
+
+dropdownRef.addEventListener("change", dropdownHandler);
+
+// Run function once to set up default
+dropdownHandler();
