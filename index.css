@@ -19,6 +19,11 @@ body {
   text-align: left;
   background-color: #fff;
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 .container-fluid {
   width: 100%;
@@ -118,6 +123,14 @@ body {
 }
 .align-items-center {
   align-items: center !important;
+}
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.sliders-group {
+  padding: 20px;
+  min-width: 270px;
 }
 
 .slider {
