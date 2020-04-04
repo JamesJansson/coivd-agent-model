@@ -1,13 +1,10 @@
 import * as Comlink from "https://unpkg.com/comlink/dist/esm/comlink.mjs";
 import sendDataToChart from "./sendDataToCharts/index.js";
 
-function callback(message) {
-  console.log(message);
-}
+function addToTable(data) {
+  const oldTbody = document.getElementById("model-table-tbody");
 
-function addToTable(data, tableId) {
-  const tableRef = document.getElementById(tableId);
-
+  const tbody = document.createElement("tbody");
   function addData(row, item) {
     const newCell = row.insertCell();
     const newText = document.createTextNode(item);
@@ -15,7 +12,7 @@ function addToTable(data, tableId) {
   }
 
   data.forEach((element) => {
-    const newRow = tableRef.insertRow();
+    const newRow = tbody.insertRow();
     addData(newRow, element.day);
     addData(newRow, element.susceptible);
     addData(newRow, element.infected);
@@ -23,6 +20,8 @@ function addToTable(data, tableId) {
     addData(newRow, element.newlyInfected);
     addData(newRow, element.newlyRecovered);
   });
+  tbody.id = "model-table-tbody";
+  oldTbody.parentNode.replaceChild(tbody, oldTbody);
 }
 
 let workerObj;
@@ -59,7 +58,7 @@ async function runModel(settings) {
   } else {
     throw new Error("settings.modelSelection not found");
   }
-  addToTable(results, "model-table");
+  addToTable(results);
   sendDataToChart(results);
 }
 
