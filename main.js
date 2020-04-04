@@ -14,7 +14,7 @@ function addToTable(data, tableId) {
     newCell.appendChild(newText);
   }
 
-  data.forEach(element => {
+  data.forEach((element) => {
     const newRow = tableRef.insertRow();
     addData(newRow, element.day);
     addData(newRow, element.susceptible);
@@ -79,9 +79,9 @@ function getInputVals() {
     document.getElementById("medianTimeUntilRecoverySlider").value
   );
   // Divide by 100 because it's a percentage
-  const infectionProbability =
-    parseFloat(document.getElementById("infectionProbabilitySlider").value) /
-    100;
+  const infectionProbability = parseFloat(
+    document.getElementById("infectionProbabilitySlider").value
+  );
   const infectionRate = parseFloat(
     document.getElementById("infectionRateSlider").value
   );
@@ -93,7 +93,7 @@ function getInputVals() {
     connectionsPerPerson,
     medianTimeUntilRecovery,
     infectionProbability,
-    infectionRate
+    infectionRate,
   };
 }
 

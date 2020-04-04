@@ -25,7 +25,7 @@ function createAxes({ results, width, height, margin }) {
           result.newlyInfected,
           result.newlyRecovered
         );
-      })
+      }),
     ])
     .range([height, 0]);
 
@@ -40,7 +40,7 @@ function drawLine({
   idColour,
   yVal,
   createPolygon,
-  fill = "none"
+  fill = "none",
 }) {
   results = JSON.parse(JSON.stringify(results));
 
@@ -62,8 +62,8 @@ function drawLine({
       "d",
       d3
         .line()
-        .x(result => xAxis(result.day))
-        .y(result => yAxis(result[yVal]))
+        .x((result) => xAxis(result.day))
+        .y((result) => yAxis(result[yVal]))
     );
 }
 
@@ -113,21 +113,21 @@ export default function sendDataToChart(results) {
   const linesData = [
     {
       label: "Day",
-      yVal: "day"
+      yVal: "day",
     },
     {
       label: "Susceptible",
       yVal: "susceptible",
-      idColour: "#0001FE"
+      idColour: "#0001FE",
     },
     {
       label: "Infected",
       yVal: "infected",
-      idColour: "#F90504"
+      idColour: "#F90504",
     },
     { label: "Recovered", yVal: "recovered", idColour: "#008700" },
-    { label: "Newly Infected", yVal: "newlyInfected", idColour: "#880303" },
-    { label: "Newly Recovered", yVal: "newlyRecovered", idColour: "#005600" }
+    { label: "Newly Infected", yVal: "newlyInfected", idColour: "#9a4ff0" },
+    { label: "Newly Recovered", yVal: "newlyRecovered", idColour: "#f0954f" },
   ];
 
   for (let i = 0; i < linesData.length; i++) {
