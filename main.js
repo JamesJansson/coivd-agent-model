@@ -56,13 +56,14 @@ function getInputVals() {
   const initialInfected = parseFloat(
     document.getElementById("initialInfectedSlider").value
   );
-  const connectionsPerPerson = parseFloat(
-    document.getElementById("connectionsPerPersonSlider").value
-  );
+
   const medianTimeUntilRecovery = parseFloat(
     document.getElementById("medianTimeUntilRecoverySlider").value
   );
-  // Divide by 100 because it's a percentage
+
+  const connectionsPerPerson = parseFloat(
+    document.getElementById("connectionsPerPersonSlider").value
+  );
   const infectionProbability = parseFloat(
     document.getElementById("infectionProbabilitySlider").value
   );
