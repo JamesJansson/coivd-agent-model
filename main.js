@@ -34,21 +34,6 @@ init();
 
 async function runModel(settings) {
   console.log(settings);
-  // const settings = {
-  //   mode: "simpleCompartmentModel",
-  //   numberOfPeople: 100000,
-  //   initialInfected: 1000,
-  //   infectionRate: 0.479,
-  //   recoverRate: 0.065
-  // };
-
-  // const settings = {
-  //   mode: "simpleAgentModel",
-  //   numberOfPeople: 100000,
-  //   initialInfected: 1000,
-  //   connectionsPerPerson: 20,
-  //   infectionProbability: 0.0063
-  // };
 
   let results;
   if (settings.modelSelection === "compartment-model") {
@@ -84,6 +69,12 @@ function getInputVals() {
   const infectionRate = parseFloat(
     document.getElementById("infectionRateSlider").value
   );
+  const interventionStart = parseFloat(
+    document.getElementById("interventionStartSlider").value
+  );
+  const infectionDuration = parseFloat(
+    document.getElementById("interventionDurationSlider").value
+  );
 
   return {
     modelSelection,
@@ -93,6 +84,8 @@ function getInputVals() {
     medianTimeUntilRecovery,
     infectionProbability,
     infectionRate,
+    interventionStart,
+    infectionDuration,
   };
 }
 

@@ -22,7 +22,7 @@
             <option value="simple-agent-model">Simple Agent Model</option>
           </select>
         </div>
-        <br />
+
         <div>
           <label for="numberOfPeopleSlider"
             >Number of people: &nbsp;<span id="numberOfPeopleSliderVal"></span
@@ -38,7 +38,7 @@
             />
           </div>
         </div>
-        <br />
+
         <div>
           <label for="initialInfectedSlider"
             >Initial infected: &nbsp;<span id="initialInfectedSliderVal"></span
@@ -54,25 +54,7 @@
             />
           </div>
         </div>
-        <br />
-        <div>
-          <label for="connectionsPerPersonSlider"
-            >Average connections per person: &nbsp;<span
-              id="connectionsPerPersonSliderVal"
-            ></span
-          ></label>
-          <div>
-            <input
-              type="range"
-              min="1"
-              max="40"
-              value="20"
-              class="slider"
-              id="connectionsPerPersonSlider"
-            />
-          </div>
-        </div>
-        <br />
+
         <div>
           <label for="medianTimeUntilRecoverySlider"
             >Mean time until recovery (days): &nbsp;<span
@@ -91,7 +73,27 @@
             />
           </div>
         </div>
-        <br />
+
+        <h2>Pre-intervention settings</h2>
+
+        <div>
+          <label for="connectionsPerPersonSlider"
+            >Average connections per person: &nbsp;<span
+              id="connectionsPerPersonSliderVal"
+            ></span
+          ></label>
+          <div>
+            <input
+              type="range"
+              min="1"
+              max="40"
+              value="20"
+              class="slider"
+              id="connectionsPerPersonSlider"
+            />
+          </div>
+        </div>
+
         <div>
           <label for="infectionProbabilitySlider"
             >Infection probability (infections per day per contact per infected
@@ -109,7 +111,7 @@
             />
           </div>
         </div>
-        <br />
+
         <div>
           <label for="infectionRateSlider"
             >Infection rate (new infections per day per infected person):
@@ -125,6 +127,45 @@
               class="slider"
               id="infectionRateSlider"
             />
+          </div>
+
+          <h2>Intervention settings</h2>
+          <div>
+            <label for="interventionStartSlider"
+              >Intervention start: &nbsp;<span
+                id="interventionStartSliderVal"
+              ></span
+            ></label>
+            <div>
+              <input
+                type="range"
+                min="0"
+                max="730"
+                step="1"
+                value="100"
+                class="slider"
+                id="interventionStartSlider"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="interventionDurationSlider"
+              >Intervention duration: &nbsp;<span
+                id="interventionDurationSliderVal"
+              ></span
+            ></label>
+            <div>
+              <input
+                type="range"
+                min="0"
+                max="730"
+                step="1"
+                value="100"
+                class="slider"
+                id="interventionDurationSlider"
+              />
+            </div>
           </div>
         </div>
         <br />
