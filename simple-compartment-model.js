@@ -1,13 +1,9 @@
-function runSimpleCompartmentModel({
-  numberOfPeople,
-  initialInfected,
-  infectionRate,
-  medianTimeUntilRecovery
-}) {
-  const recoverRate = 1 - Math.exp(Math.log(0.5) / medianTimeUntilRecovery);
+function runSimpleCompartmentModel(settings) {
+  const recoverRate =
+    1 - Math.exp(Math.log(0.5) / settings.medianTimeUntilRecovery);
 
-  let susceptible = numberOfPeople - initialInfected;
-  let infected = initialInfected;
+  let susceptible = settings.numberOfPeople - settings.initialInfected;
+  let infected = settings.initialInfected;
   let recovered = 0;
 
   const results = [
@@ -17,15 +13,15 @@ function runSimpleCompartmentModel({
       infected,
       recovered,
       newlyInfected: 0,
-      newlyRecovered: 0
-    }
+      newlyRecovered: 0,
+    },
   ];
   // Run the model
-  for (let day = 1; day <= 100; day++) {
+  for (let day = 1; day <= settings.modelDuration; day++) {
     const proportionOfPeopleSusceptible =
       susceptible / (susceptible + infected + recovered);
     const newlyInfected =
-      infectionRate * infected * proportionOfPeopleSusceptible;
+      settings.infectionRate * infected * proportionOfPeopleSusceptible;
     const newlyRecovered = recoverRate * infected;
 
     susceptible = susceptible - newlyInfected;
@@ -38,7 +34,7 @@ function runSimpleCompartmentModel({
       infected: roundedFraction(infected),
       recovered: roundedFraction(recovered),
       newlyInfected: roundedFraction(newlyInfected),
-      newlyRecovered: roundedFraction(newlyRecovered)
+      newlyRecovered: roundedFraction(newlyRecovered),
     });
     console.log(
       day +

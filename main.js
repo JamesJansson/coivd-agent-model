@@ -59,7 +59,6 @@ function getInputVals() {
   const initialInfected = parseFloat(
     document.getElementById("initialInfectedSlider").value
   );
-
   const medianTimeUntilRecovery = parseFloat(
     document.getElementById("medianTimeUntilRecoverySlider").value
   );
@@ -91,14 +90,17 @@ function getInputVals() {
   );
 
   return {
-    modelDuration,
     modelSelection,
+
+    modelDuration,
     numberOfPeople,
     initialInfected,
-    connectionsPerPerson,
     medianTimeUntilRecovery,
+
+    connectionsPerPerson,
     infectionProbability,
     infectionRate,
+
     interventionStart,
     infectionDuration,
     interventionConnectionsPerPerson,
