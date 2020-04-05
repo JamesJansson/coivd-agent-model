@@ -7,9 +7,8 @@ const obj = {
     return runSimpleAgentModel(settings);
   },
   runSimpleCompartmentModelWrapper(settings) {
-    console.log("cccc");
     return runSimpleCompartmentModel(settings);
-  }
+  },
 };
 
 Comlink.expose(obj);

@@ -195,57 +195,61 @@
         </div>
 
         <div class="simple-agent-model-settings">
-          <label for="connectionsPerPersonSlider"
-            >Average connections per person: &nbsp;<span
-              id="interventionConnectionsPerPersonSliderVal"
+          <label for="interventionConnectionReductionSlider"
+            >Connections per person reduction: &nbsp;<span
+              id="interventionConnectionReductionSliderVal"
             ></span
-          ></label>
+            >%</label
+          >
           <div>
             <input
               type="range"
-              min="1"
-              max="40"
-              value="20"
+              min="0"
+              max="100"
+              step="1"
+              value="90"
               class="slider"
-              id="interventionConnectionsPerPersonSlider"
+              id="interventionConnectionReductionSlider"
             />
           </div>
         </div>
 
         <div class="simple-agent-model-settings">
-          <label for="interventionInfectionProbabilitySlider"
-            >Infection probability (infections per day per contact per infected
-            person): &nbsp;<span
-              id="interventionInfectionProbabilitySliderVal"
-            ></span
-          ></label>
+          <label for="interventionInfectionProbabilityReductionSlider"
+            >Infection probability reduction: &nbsp;<span
+              id="interventionInfectionProbabilityReductionSliderVal"
+              >%</span
+            ></label
+          >
           <div>
             <input
               type="range"
               min="0"
-              max="0.1"
-              step="0.001"
-              value="0.022"
+              max="100"
+              step="1"
+              value="0"
               class="slider"
-              id="interventionInfectionProbabilitySlider"
+              id="interventionInfectionProbabilityReductionSlider"
             />
           </div>
         </div>
 
         <div class="compartment-model-settings">
-          <label for="interventionInfectionRateSlider"
-            >Infection rate (new infections per day per infected person):
-            &nbsp;<span id="interventionInfectionRateSliderVal"></span
-          ></label>
+          <label for="interventionInfectionRateReductionSlider"
+            >Infection rate reduction: &nbsp;<span
+              id="interventionInfectionRateReductionSliderVal"
+            ></span
+            >%</label
+          >
           <div>
             <input
               type="range"
               min="0"
-              max="10"
-              step="0.01"
-              value="0.31"
+              max="100"
+              step="1"
+              value="80"
               class="slider"
-              id="interventionInfectionRateSlider"
+              id="interventionInfectionRateReductionSlider"
             />
           </div>
         </div>

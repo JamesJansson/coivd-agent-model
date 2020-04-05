@@ -4,8 +4,8 @@ class Person {
     this.connections = [];
   }
 
-  addConnection(connection) {
-    this.connections.push(connection);
+  addConnection(person, connectedInIntervention) {
+    this.connections.push({ person, connectedInIntervention });
   }
 
   infect(day, stepSettings, data) {
@@ -31,8 +31,14 @@ class Person {
     // Determine the infections that this person is responsible for
     if (this.infectionStatus === 1) {
       this.connections.forEach((connection) => {
+        if (
+          stepSettings.isIntervention &&
+          connection.connectedInIntervention === false
+        ) {
+          return; // not connected in an intervention
+        }
         if (Math.random() < stepSettings.infectionProbability) {
-          connection.infect(day, stepSettings, data);
+          connection.person.infect(day, stepSettings, data);
         }
       });
     }
@@ -76,8 +82,12 @@ function runSimpleAgentModel(settings) {
     const person2Number = Math.floor(settings.numberOfPeople * Math.random());
     const person1 = people[person1Number];
     const person2 = people[person2Number];
-    person1.addConnection(person2);
-    person2.addConnection(person1);
+
+    const connectedInIntervention =
+      Math.random() < 1 - settings.interventionConnectionReduction / 100;
+
+    person1.addConnection(person2, connectedInIntervention);
+    person2.addConnection(person1, connectedInIntervention);
   }
 
   console.log("Initial infections");
@@ -93,7 +103,6 @@ function runSimpleAgentModel(settings) {
       const arr = people.filter((p) => p.infectionStatus === 0);
       const supplementaryPersonNumber = Math.floor(arr.length * Math.random());
       person1 = arr[supplementaryPersonNumber];
-      console.log(person1.infectionStatus);
     }
     person1.infect(0, settings);
     person1.finalizeDay();
@@ -122,10 +131,24 @@ function runSimpleAgentModel(settings) {
       newlyRecovered: 0,
     };
 
-    const stepSettings = {
-      medianTimeUntilRecovery: settings.medianTimeUntilRecovery,
+    let stepSettings = {
+      isIntervention: false,
       infectionProbability: settings.infectionProbability,
+      medianTimeUntilRecovery: settings.medianTimeUntilRecovery,
     };
+
+    if (
+      day >= settings.interventionStart &&
+      day < settings.interventionStart + settings.interventionDuration
+    ) {
+      stepSettings = {
+        isIntervention: true,
+        infectionProbability:
+          (1 - settings.interventionInfectionProbabilityReduction / 100) *
+          settings.infectionProbability,
+        medianTimeUntilRecovery: settings.medianTimeUntilRecovery,
+      };
+    }
 
     // Run infections
     people.forEach((person) => {

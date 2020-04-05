@@ -23,7 +23,9 @@ function runSimpleCompartmentModel(settings) {
       day >= settings.interventionStart &&
       day < settings.interventionStart + settings.interventionDuration
     ) {
-      infectionRate = settings.interventionInfectionRate;
+      infectionRate =
+        (1 - settings.interventionInfectionRateReduction / 100) *
+        settings.infectionRate;
     }
 
     const proportionOfPeopleSusceptible =

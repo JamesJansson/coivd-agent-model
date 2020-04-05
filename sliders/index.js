@@ -9,9 +9,9 @@ function sliderHandler() {
     "infectionRateSlider",
     "interventionStartSlider",
     "interventionDurationSlider",
-    "interventionConnectionsPerPersonSlider",
-    "interventionInfectionProbabilitySlider",
-    "interventionInfectionRateSlider",
+    "interventionConnectionReductionSlider",
+    "interventionInfectionProbabilityReductionSlider",
+    "interventionInfectionRateReductionSlider",
   ];
 
   for (let i = 0; i < sliderIds.length; i++) {

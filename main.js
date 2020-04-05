@@ -79,14 +79,15 @@ function getInputVals() {
   const interventionDuration = parseFloat(
     document.getElementById("interventionDurationSlider").value
   );
-  const interventionConnectionsPerPerson = parseFloat(
-    document.getElementById("interventionConnectionsPerPersonSlider").value
+  const interventionConnectionReduction = parseFloat(
+    document.getElementById("interventionConnectionReductionSlider").value
   );
-  const interventionInfectionProbability = parseFloat(
-    document.getElementById("interventionInfectionProbabilitySlider").value
+  const interventionInfectionProbabilityReduction = parseFloat(
+    document.getElementById("interventionInfectionProbabilityReductionSlider")
+      .value
   );
-  const interventionInfectionRate = parseFloat(
-    document.getElementById("interventionInfectionRateSlider").value
+  const interventionInfectionRateReduction = parseFloat(
+    document.getElementById("interventionInfectionRateReductionSlider").value
   );
 
   return {
@@ -103,9 +104,9 @@ function getInputVals() {
 
     interventionStart,
     interventionDuration,
-    interventionConnectionsPerPerson,
-    interventionInfectionProbability,
-    interventionInfectionRate,
+    interventionConnectionReduction,
+    interventionInfectionProbabilityReduction,
+    interventionInfectionRateReduction,
   };
 }
 
