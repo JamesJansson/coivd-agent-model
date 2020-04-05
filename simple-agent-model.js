@@ -50,25 +50,13 @@ class Person {
 }
 
 function runSimpleAgentModel(settings) {
-  const {
-    numberOfPeople,
-    initialInfected,
-    connectionsPerPerson,
-    infectionProbability,
-  } = settings;
-
-  console.log({
-    numberOfPeople,
-    initialInfected,
-    connectionsPerPerson,
-    infectionProbability,
-  });
+  console.log(settings);
 
   console.log("About to create people");
 
   // Create people in the model
   const people = [];
-  for (let i = 0; i < numberOfPeople; i++) {
+  for (let i = 0; i < settings.numberOfPeople; i++) {
     people.push(new Person());
   }
 
@@ -76,10 +64,14 @@ function runSimpleAgentModel(settings) {
 
   // Join users
   // For example, if connectionsPerPerson = 20, the number of connections we need to make is 10
-  for (let i = 0; i < (numberOfPeople * connectionsPerPerson) / 2; i++) {
+  for (
+    let i = 0;
+    i < (settings.numberOfPeople * settings.connectionsPerPerson) / 2;
+    i++
+  ) {
     // Choose two people at random
-    const person1Number = Math.floor(numberOfPeople * Math.random());
-    const person2Number = Math.floor(numberOfPeople * Math.random());
+    const person1Number = Math.floor(settings.numberOfPeople * Math.random());
+    const person2Number = Math.floor(settings.numberOfPeople * Math.random());
     const person1 = people[person1Number];
     const person2 = people[person2Number];
     person1.addConnection(person2);
@@ -89,9 +81,9 @@ function runSimpleAgentModel(settings) {
   console.log("Initial infections");
 
   // Start people off with initial infected
-  for (let i = 0; i < initialInfected; i++) {
+  for (let i = 0; i < settings.initialInfected; i++) {
     // Choose people at random
-    const personNumber = Math.floor(numberOfPeople * Math.random());
+    const personNumber = Math.floor(settings.numberOfPeople * Math.random());
     let person1 = people[personNumber];
 
     // If the person is already infected, it is likely that there are many people infected, so filter
@@ -107,8 +99,8 @@ function runSimpleAgentModel(settings) {
 
   console.log("Starting time");
 
-  let susceptible = numberOfPeople - initialInfected;
-  let infected = initialInfected;
+  let susceptible = settings.numberOfPeople - settings.initialInfected;
+  let infected = settings.initialInfected;
   let recovered = 0;
 
   const results = [
@@ -122,7 +114,7 @@ function runSimpleAgentModel(settings) {
     },
   ];
   // Run the model
-  for (let day = 1; day <= 100; day++) {
+  for (let day = 1; day <= settings.modelDuration; day++) {
     const data = {
       newlyInfected: 0,
       newlyRecovered: 0,

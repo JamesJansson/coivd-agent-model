@@ -17,11 +17,13 @@
       <div class="sliders-group">
         <br />
         <div>
+          <b>Select model type:</b>
           <select id="model-selection">
             <option value="compartment-model">Compartment Model</option>
             <option value="simple-agent-model">Simple Agent Model</option>
           </select>
         </div>
+        <br />
 
         <div>
           <label for="modelDurationSlider"
@@ -122,11 +124,15 @@
               min="0"
               max="0.1"
               step="0.001"
-              value="0.022"
+              value="0.014"
               class="slider"
               id="infectionProbabilitySlider"
             />
           </div>
+          <i
+            >Note: with 20 contacts per person, 0.014 represents a doubling
+            every 3 days.</i
+          >
         </div>
 
         <div class="compartment-model-settings">
@@ -140,11 +146,12 @@
               min="0"
               max="10"
               step="0.01"
-              value="0.47"
+              value="0.31"
               class="slider"
               id="infectionRateSlider"
             />
           </div>
+          <i>Note: 0.031 represents a doubling every 3 days.</i>
         </div>
 
         <h2>Intervention settings</h2>
@@ -160,7 +167,7 @@
               min="0"
               max="730"
               step="1"
-              value="100"
+              value="50"
               class="slider"
               id="interventionStartSlider"
             />
@@ -179,7 +186,7 @@
               min="0"
               max="730"
               step="1"
-              value="100"
+              value="90"
               class="slider"
               id="interventionDurationSlider"
             />
