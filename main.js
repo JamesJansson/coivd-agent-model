@@ -76,7 +76,7 @@ function getInputVals() {
   const interventionStart = parseFloat(
     document.getElementById("interventionStartSlider").value
   );
-  const infectionDuration = parseFloat(
+  const interventionDuration = parseFloat(
     document.getElementById("interventionDurationSlider").value
   );
   const interventionConnectionsPerPerson = parseFloat(
@@ -102,7 +102,7 @@ function getInputVals() {
     infectionRate,
 
     interventionStart,
-    infectionDuration,
+    interventionDuration,
     interventionConnectionsPerPerson,
     interventionInfectionProbability,
     interventionInfectionRate,

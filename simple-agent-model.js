@@ -8,18 +8,20 @@ class Person {
     this.connections.push(connection);
   }
 
-  infect(day, settings, data) {
+  infect(day, stepSettings, data) {
     if (this.infectionStatus === 0) {
       this.nextInfectionStatus = 1;
       this.infectionEnd =
-        day + settings.medianTimeUntilRecovery + 7 * (Math.random() * 2 - 1);
+        day +
+        stepSettings.medianTimeUntilRecovery +
+        7 * (Math.random() * 2 - 1);
       if (data) {
         data.newlyInfected++;
       }
     }
   }
 
-  runDay(day, settings, data) {
+  runDay(day, stepSettings, data) {
     // Determine if the person has recovered
     if (this.infectionStatus === 1 && day > this.infectionEnd) {
       this.infectionStatus = 2; // No longer infective
@@ -29,8 +31,8 @@ class Person {
     // Determine the infections that this person is responsible for
     if (this.infectionStatus === 1) {
       this.connections.forEach((connection) => {
-        if (Math.random() < settings.infectionProbability) {
-          connection.infect(day, settings, data);
+        if (Math.random() < stepSettings.infectionProbability) {
+          connection.infect(day, stepSettings, data);
         }
       });
     }
@@ -120,9 +122,14 @@ function runSimpleAgentModel(settings) {
       newlyRecovered: 0,
     };
 
+    const stepSettings = {
+      medianTimeUntilRecovery: settings.medianTimeUntilRecovery,
+      infectionProbability: settings.infectionProbability,
+    };
+
     // Run infections
     people.forEach((person) => {
-      person.runDay(day, settings, data);
+      person.runDay(day, stepSettings, data);
     });
     // Finalize infections for this step
     people.forEach((person) => {

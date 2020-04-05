@@ -18,10 +18,18 @@ function runSimpleCompartmentModel(settings) {
   ];
   // Run the model
   for (let day = 1; day <= settings.modelDuration; day++) {
+    let infectionRate = settings.infectionRate;
+    if (
+      day >= settings.interventionStart &&
+      day < settings.interventionStart + settings.interventionDuration
+    ) {
+      infectionRate = settings.interventionInfectionRate;
+    }
+
     const proportionOfPeopleSusceptible =
       susceptible / (susceptible + infected + recovered);
     const newlyInfected =
-      settings.infectionRate * infected * proportionOfPeopleSusceptible;
+      infectionRate * infected * proportionOfPeopleSusceptible;
     const newlyRecovered = recoverRate * infected;
 
     susceptible = susceptible - newlyInfected;
