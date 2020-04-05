@@ -70,11 +70,21 @@ function getInputVals() {
   const infectionRate = parseFloat(
     document.getElementById("infectionRateSlider").value
   );
+
   const interventionStart = parseFloat(
     document.getElementById("interventionStartSlider").value
   );
   const infectionDuration = parseFloat(
     document.getElementById("interventionDurationSlider").value
+  );
+  const interventionConnectionsPerPerson = parseFloat(
+    document.getElementById("interventionConnectionsPerPersonSlider").value
+  );
+  const interventionInfectionProbability = parseFloat(
+    document.getElementById("interventionInfectionProbabilitySlider").value
+  );
+  const interventionInfectionRate = parseFloat(
+    document.getElementById("interventionInfectionRateSlider").value
   );
 
   return {
@@ -87,6 +97,9 @@ function getInputVals() {
     infectionRate,
     interventionStart,
     infectionDuration,
+    interventionConnectionsPerPerson,
+    interventionInfectionProbability,
+    interventionInfectionRate,
   };
 }
 
@@ -115,8 +128,26 @@ function dropdownHandler() {
   console.log(`Dropdown is set to: ${modelSelection}`);
   // TODO:
 
+  const compartmentModelElements = document.getElementsByClassName(
+    "compartment-model-settings"
+  );
+  const simpleAgentModelElements = document.getElementsByClassName(
+    "simple-agent-model-settings"
+  );
   if (modelSelection === "compartment-model") {
+    for (let element of compartmentModelElements) {
+      element.style = "";
+    }
+    for (let element of simpleAgentModelElements) {
+      element.style = "display:none";
+    }
   } else if (modelSelection === "simple-agent-model") {
+    for (let element of compartmentModelElements) {
+      element.style = "display:none";
+    }
+    for (let element of simpleAgentModelElements) {
+      element.style = "";
+    }
   }
 }
 
