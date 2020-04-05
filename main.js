@@ -126,8 +126,6 @@ const dropdownRef = document.getElementById("model-selection");
 function dropdownHandler() {
   const modelSelection = dropdownRef.value;
   console.log(`Dropdown is set to: ${modelSelection}`);
-  // TODO:
-
   const compartmentModelElements = document.getElementsByClassName(
     "compartment-model-settings"
   );
