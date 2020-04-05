@@ -20,6 +20,7 @@ function runSimpleCompartmentModel(settings) {
   for (let day = 1; day <= settings.modelDuration; day++) {
     let infectionRate = settings.infectionRate;
     if (
+      settings.interventionStart > 0 && // Set to zero to have no intervention
       day >= settings.interventionStart &&
       day < settings.interventionStart + settings.interventionDuration
     ) {

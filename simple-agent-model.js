@@ -138,6 +138,7 @@ function runSimpleAgentModel(settings) {
     };
 
     if (
+      settings.interventionStart > 0 && // Set to zero to have no intervention
       day >= settings.interventionStart &&
       day < settings.interventionStart + settings.interventionDuration
     ) {
