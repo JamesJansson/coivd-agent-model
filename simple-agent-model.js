@@ -28,7 +28,7 @@ class Person {
 
     // Determine the infections that this person is responsible for
     if (this.infectionStatus === 1) {
-      this.connections.forEach(connection => {
+      this.connections.forEach((connection) => {
         if (Math.random() < settings.infectionProbability) {
           connection.infect(day, settings, data);
         }
@@ -54,21 +54,15 @@ function runSimpleAgentModel(settings) {
     numberOfPeople,
     initialInfected,
     connectionsPerPerson,
-    infectionProbability
+    infectionProbability,
   } = settings;
 
   console.log({
     numberOfPeople,
     initialInfected,
     connectionsPerPerson,
-    infectionProbability
+    infectionProbability,
   });
-  // const numberOfPeople = 100000;
-  // const initialInfected = 1000;
-  // const connectionsPerPerson = 20;
-  // const infectionProbability = 0.0063;
-  //   const infectionProbability = 0.0063 * 0.2;
-  // We'll choose numberOfPeople * 10 connections because that means that each person will have 20 connections
 
   console.log("About to create people");
 
@@ -81,6 +75,7 @@ function runSimpleAgentModel(settings) {
   console.log("Joining users");
 
   // Join users
+  // For example, if connectionsPerPerson = 20, the number of connections we need to make is 10
   for (let i = 0; i < (numberOfPeople * connectionsPerPerson) / 2; i++) {
     // Choose two people at random
     const person1Number = Math.floor(numberOfPeople * Math.random());
@@ -101,7 +96,7 @@ function runSimpleAgentModel(settings) {
 
     // If the person is already infected, it is likely that there are many people infected, so filter
     if (person1.infectionStatus === 1) {
-      const arr = people.filter(p => p.infectionStatus === 0);
+      const arr = people.filter((p) => p.infectionStatus === 0);
       const supplementaryPersonNumber = Math.floor(arr.length * Math.random());
       person1 = arr[supplementaryPersonNumber];
       console.log(person1.infectionStatus);
@@ -123,28 +118,28 @@ function runSimpleAgentModel(settings) {
       infected,
       recovered,
       newlyInfected: 0,
-      newlyRecovered: 0
-    }
+      newlyRecovered: 0,
+    },
   ];
   // Run the model
   for (let day = 1; day <= 100; day++) {
     const data = {
       newlyInfected: 0,
-      newlyRecovered: 0
+      newlyRecovered: 0,
     };
 
     // Run infections
-    people.forEach(person => {
+    people.forEach((person) => {
       person.runDay(day, settings, data);
     });
     // Finalize infections for this step
-    people.forEach(person => {
+    people.forEach((person) => {
       person.finalizeDay(day);
     });
     let susceptible = 0;
     let infected = 0;
     let recovered = 0;
-    people.forEach(person => {
+    people.forEach((person) => {
       const status = person.getInfectionStatus();
       if (status === 0) {
         susceptible++;
@@ -160,7 +155,7 @@ function runSimpleAgentModel(settings) {
       infected,
       recovered,
       newlyInfected: data.newlyInfected,
-      newlyRecovered: data.newlyRecovered
+      newlyRecovered: data.newlyRecovered,
     });
     console.log(
       day +

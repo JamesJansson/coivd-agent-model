@@ -24,6 +24,23 @@
         </div>
 
         <div>
+          <label for="modelDurationSlider"
+            >Model duration: &nbsp;<span id="modelDurationSliderVal"></span
+          ></label>
+          <div>
+            <input
+              type="range"
+              min="0"
+              max="730"
+              step="1"
+              value="365"
+              class="slider"
+              id="modelDurationSlider"
+            />
+          </div>
+        </div>
+
+        <div>
           <label for="numberOfPeopleSlider"
             >Number of people: &nbsp;<span id="numberOfPeopleSliderVal"></span
           ></label>
@@ -105,7 +122,7 @@
               min="0"
               max="0.1"
               step="0.001"
-              value="0.01"
+              value="0.022"
               class="slider"
               id="infectionProbabilitySlider"
             />
@@ -123,7 +140,7 @@
               min="0"
               max="10"
               step="0.01"
-              value="0.5"
+              value="0.47"
               class="slider"
               id="infectionRateSlider"
             />
@@ -200,7 +217,7 @@
               min="0"
               max="0.1"
               step="0.001"
-              value="0.01"
+              value="0.022"
               class="slider"
               id="interventionInfectionProbabilitySlider"
             />
@@ -218,7 +235,7 @@
               min="0"
               max="10"
               step="0.01"
-              value="0.5"
+              value="0.47"
               class="slider"
               id="interventionInfectionRateSlider"
             />

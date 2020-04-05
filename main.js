@@ -50,6 +50,9 @@ async function runModel(settings) {
 function getInputVals() {
   const modelSelection = document.getElementById("model-selection").value;
 
+  const modelDuration = parseFloat(
+    document.getElementById("modelDurationSlider").value
+  );
   const numberOfPeople = parseFloat(
     document.getElementById("numberOfPeopleSlider").value
   );
@@ -88,6 +91,7 @@ function getInputVals() {
   );
 
   return {
+    modelDuration,
     modelSelection,
     numberOfPeople,
     initialInfected,
