@@ -31,8 +31,10 @@ function runSimpleCompartmentModel(settings) {
 
     const proportionOfPeopleSusceptible =
       susceptible / (susceptible + infected + recovered);
-    const newlyInfected =
-      infectionRate * infected * proportionOfPeopleSusceptible;
+    const newlyInfected = Math.min(
+      susceptible,
+      infectionRate * infected * proportionOfPeopleSusceptible
+    );
     const newlyRecovered = recoverRate * infected;
 
     susceptible = susceptible - newlyInfected;
